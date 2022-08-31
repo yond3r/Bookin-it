@@ -4,28 +4,40 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
+import {ApolloProvider} from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+
+
+const client = newApolloClient({
+  request: operation => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri: '/graphql'
+});
+
+
+
 function App() {
   return (
-    <Router>
-      <>
+    <ApolloProvider client={client}>
+      <Router>
+        <>
         <Navbar />
-        <Routes>
-          <Route 
-            path='/' 
-            element={<SearchBooks />} 
-          />
-          <Route 
-            path='/saved' 
-            element={<SavedBooks />} 
-          />
-          <Route 
-            path='*'
-            element={<h1 className='display-2'>Wrong page!</h1>}
-          />
-        </Routes>
-      </>
-    </Router>
-  );
-}
+        <Switch>
+          <Route exact path = '/' component={SearchBooks} />
+          <Route exact path = '/saved' component={SavedBooks} />
+          <Route render= {() => <h1 className ='display-2'>Wrong Page!</h1>} />
+          </Switch>
+        </>
+      </Router>
+    </ApolloProvider>
+  )
+};
 
 export default App;
