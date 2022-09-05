@@ -20,6 +20,7 @@ const server = new ApolloServer({
 
 //integration
 // await server.start(); -- why won't you let me call this if you're telling me there is an error prior aaa
+server.start().then(res =>{
 server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +42,7 @@ db.once('open', () => {
     // console.log(`API server running on port ${PORT}`)
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
     });
+});
 
 process.on('uncaughtException', function(err){
   console.log('caught exception: ' + err);
