@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import {useQuery, useMutation} from '@apollo/react-hooks';
-import {GET_ME} from '../utils/queries';
-import {REMOVE_BOOK} from '../utils/mutations';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { GET_ME } from '../utils/queries';
+import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/localStorage';
 import { removeBookId } from '../utils/localStorage';
 
@@ -29,12 +29,12 @@ const SavedBooks = () => {
       await deleteBook({
         variables: {bookId: bookId},
         update: cache => {
-          const data = cache.readQuery({query: GET_ME});
+          const data = cache.readQuery({ query: GET_ME });
           const userData = data.me;
           const savedBooksCache = userDataCache.savedBooks;
           const updatedBooksCache = savedBooksCache.filter((book) => book.bookId !== bookId);
             data.me.savedBooks = updatedBooksCache;
-            cache.writeQuery({query: GET_ME, data: {data: {...data.me.savedBooks}}});
+            cache.writeQuery({ query: GET_ME, data: {data: {...data.me.savedBooks}}});
         }});
 
         //removing from local storage
@@ -43,8 +43,8 @@ const SavedBooks = () => {
         console.log(err)
       }};
   // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
+  if (loading) {
+    return <h2>loading...</h2>;
   }
 
   return (
