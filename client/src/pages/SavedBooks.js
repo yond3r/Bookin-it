@@ -30,7 +30,7 @@ const SavedBooks = () => {
         variables: {bookId: bookId},
         update: cache => {
           const data = cache.readQuery({ query: GET_ME });
-          const userData = data.me;
+          const userDataCache = data.me;
           const savedBooksCache = userDataCache.savedBooks;
           const updatedBooksCache = savedBooksCache.filter((book) => book.bookId !== bookId);
             data.me.savedBooks = updatedBooksCache;
