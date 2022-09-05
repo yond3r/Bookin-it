@@ -16,6 +16,7 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
     "apollo-boost": "^0.4.9",
     "apollo-server-express": "^3.10.2",
     "bcrypt": "^5.0.1",
