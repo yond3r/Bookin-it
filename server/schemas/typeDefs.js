@@ -29,6 +29,11 @@ input savedBook {
     authors: [String]
 }
 
+type Auth {
+    token: ID!
+    user: User
+}
+
 type Query {
     me: User
 }
@@ -40,10 +45,6 @@ type Mutation {
     removeBook(bookId: ID!): User
 }
 
-type Auth {
-    token: ID!
-    user: User
-}
 `;
 
 module.exports = typeDefs;
